@@ -6,6 +6,8 @@ import { ProductGroupModule } from './modules/product-group/product-group.module
 import { ProductGroup } from './modules/product-group/entities/product-group.entity';
 import { ProductModule } from './modules/product/product.module';
 import { Product } from './modules/product/entities/product.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { OtherModule } from './other/other.module';
 
 @Module({
   imports: [
@@ -22,8 +24,18 @@ import { Product } from './modules/product/entities/product.entity';
       synchronize: true,
       logging: true,
     }),
+    MailerModule.forRoot({
+      transport: {
+        service: 'gmail',
+        auth: {
+          user: 'app.mail.tm@gmail.com',
+          pass: 'qplexgztpypigtac',
+        },
+      },
+    }),
     ProductGroupModule,
     ProductModule,
+    OtherModule,
   ],
 })
 export class AppModule {}
